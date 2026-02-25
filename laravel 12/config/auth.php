@@ -35,10 +35,15 @@ return [
     |
     */
 
+    // Login web untuk USER
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'admin' => [ //admin itu bisa digunakan sbb auth('admin')->user()->name | Auth::guard('admin')->user()->name
+            'driver' => 'session', // kalau dashboard pakai web
+            'provider' => 'admin', //set nama provider dan sesuaikan dengan provider yg dibawah
         ],
     ],
 
@@ -63,6 +68,12 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+
+        //auth admin akan ambil ke model Admin
+        'admin' => [ //admin itu nama provider
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\Admin::class), //ambil data auth ke model admin
         ],
 
         // 'users' => [
